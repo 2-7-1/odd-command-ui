@@ -1,0 +1,95 @@
+#oddCommandH1 {
+    align: center;
+    margin: 0px;
+    height: 70px;
+    vertical-align:middle;
+    horizontal-align:middle;
+    text-align:center;
+}
+
+#authorStrong {
+	font-weight: bolder
+}
+
+#implementationStrong {
+	font-weight: bolder
+}
+
+#aboutDiv {
+    text-align: right
+}
+
+#h1Div {
+	border: none:
+    margin: 0;
+    background-color: #d3d3d3;
+    align: center
+}
+
+#leftScrollDiv {
+    margin: 0px 0px 50px 0px;
+    overflow: auto
+}
+
+#feedback {
+	font-size: 1.4em;
+}
+
+h1 {
+    font-size: 250%;
+}
+
+#selectable .ui-selecting {
+	background: #FECA40;
+}
+
+#selectable .ui-selected {
+	background: #F39814;
+	color: white;
+}
+
+#selectable {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 60%;
+}
+
+#selectable li {
+	margin: 3px;
+	padding: 0.4em;
+	font-size: 1.4em;
+	height: 18px;
+}
+
+#itemMetadata {
+	width: 400px;
+	height: 200px;
+	resize: none;
+	margin-left: 10px;
+	vertical-align: middle
+}
+
+#warningTextArea {
+	width: 400px;
+	height: 50px;
+	resize: none;
+	align-content: left;
+	font-style: italic;
+	font-size: 14;
+	background-color: red;
+	margin-left: 10px
+}
+
+#dataStoreItemsText {
+	display: inline;
+	margin-left: 50px;
+	font-size: 24px;
+}
+
+#itemMetadataLabel {
+	border: none;
+	resize: none;
+	margin-left: 9px;
+	font-size: 24px;
+}

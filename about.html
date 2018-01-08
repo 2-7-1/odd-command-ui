@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>OddCommand</title>
+</head>
+<body>
+	<a href="index.html">Back</a>
+	<h1 id="oddCommandH1" align="center">OddCommand</h1>
+
+		<div id="authorStrong" style="font-weight:bolder">Author: Leonard Gutnikov </div>
+
+	<p>
+		-- This application simulates a cloud datastore management system. <br> -- The list of items on the left represents items 
+		in a datastore (in this case AWS S3 Bucket).  <br>  -- Click "Refresh" to see the latest list of datastore items. <br>
+		-- Clicking on a datastore simulates a download or access of this item.  Information about the downloaded item is displayed the right side. <br>
+		-- If an item is accessed more than 2 times within 5 seconds, a message is displayed to consider re-tiering the object.
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<strong id="implementationStrong">Implementation:</strong> <br> <br> This entire application is running in AWS.  This web UI is a simple static website hosted in AWS S3. 
+		The back-end is a REST API microservice running in a docker container in AWS Elastic Container Service (ECS).  The microservice
+		uses Java Spring Boot and Spring Cloud technologies.  This UI makes asynchronous "AJAX" calls to the microservice REST API which interacts
+		with the datastore to populate the various parts of the UI.  The microservice also contains the business-logic to recommend re-tiering if
+		and item is accessed more than twice within 5 seconds.  <br> <br> 
+		The microservice source code can be found on Github at  <a href="https://github.com/2-7-1/odd-command-dal">https://github.com/2-7-1/odd-command-dal</a> <br> <br>
+		The UI source code can be found on Github at <a href="https://github.com/2-7-1/odd-command-ui">https://github.com/2-7-1/odd-command-ui</a>
+	</p>
+</body>
+</html>

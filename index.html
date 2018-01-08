@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title id="oddCommandTitle">OddCommand</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/jquery.splitter-0.14.0.js"></script>
+<link href="css/jquery.splitter.css" rel="stylesheet" />
+<link href="css/jquery-ui.min.css" rel="stylesheet" />
+<link href="css/jquery-ui.structure.min.css" rel="stylesheet" />
+<link href="css/jquery-ui.theme.min.css" rel="stylesheet" />
+<link href="css/odd-command.css" rel="stylesheet" />
+
+
+<script>
+	$(document).ready(function() {
+		$("#warningTextArea").hide();
+		splitter = $('#foo').height(2000).split({
+			orientation : 'vertical',
+			limit : 10,
+			position : '50%', 
+			onDrag : function(event) {
+				console.log(splitter.position());
+			}
+		});
+		$(".widget input[type=submit], .widget a, .widget button").button();
+		$( "button, input, a" ).click(function(event) {
+			document.getElementById('itemMetadata').value= "";
+			$.ajax({
+				  method: "GET",
+				  headers: {
+				        "Content-Type":"application/json;charset=UTF-8",
+				        "Access-Control-Allow-Origin": "*"
+				  	},
+				  url: "http://ec2-34-227-99-135.compute-1.amazonaws.com/odd-command-dal/list"
+				}).done(function(msg) {
+					$("ol").empty();
+					var objectJSON = jQuery.parseJSON(msg);
+					$.each(objectJSON, function(index, value) {
+						$('#selectable').append('<li class="ui-widget-content fClick" id="' + value.key + '">' + value.key + '</li>');
+				    });
+				   	console.log(msg);
+			});
+		});
+		$("#selectable").selectable({
+			  selected: function( event, ui ) {
+				  var key = $(ui.selected).attr('id');
+				  $.ajax({
+					  method: "GET",
+					  headers: {
+					        "Content-Type":"application/json;charset=UTF-8",
+					        "Access-Control-Allow-Origin": "*"
+					  	},
+					  url: "http://ec2-34-227-99-135.compute-1.amazonaws.com/odd-command-dal/get-object/" + key
+					}).done(function(msg) {
+					    var ugly = msg;
+					    var obj = JSON.parse(ugly);
+					    var pretty = JSON.stringify(obj, undefined, 4);
+					    document.getElementById('itemMetadata').value = pretty;
+					    if (obj.shouldReTier == "true") {
+					    	$("#warningTextArea").show();
+					    }
+					    else {
+					    	$("#warningTextArea").hide();
+					    }
+						
+				});
+			  }
+		});
+	});
+</script>
+
+
+</head>
+<body>
+	<div id="h1Div">
+		<h1 id="oddCommandH1" align="center">OddCommand</h1>
+		<div id="aboutDiv">
+			<a href="about.html">About</a>
+		</div>
+		<hr>
+	</div>
+	<div id="foo">
+		<div id="leftPane">
+			<button id="refreshButton" class="ui-button ui-widget ui-corner-all">Refresh</button>
+			<a id="dataStoreItemsText">Datastore items:</a>
+			<div id="separatorDiv1" style="height: 100"></div>
+			<ol id="selectable">
+
+			</ol>
+		</div>
+		<div id="rightPane">
+			<textarea id="itemMetadataLabel">Item Info:</textarea>
+			<textarea id="itemMetadata">
+			</textarea>
+			<textarea id="warningTextArea">Consider re-teiring this item</textarea>
+		</div>
+	</div>
+
+</body>
+</html>
